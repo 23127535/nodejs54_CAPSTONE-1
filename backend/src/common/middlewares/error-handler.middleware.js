@@ -1,4 +1,4 @@
-import { AppError } from '../helpers/app-error.helper';
+import { AppError } from '../helpers/app-error.helper.js';
 
 const errorHandler = (err, req, res, next) => {
   // Nếu đã là AppError

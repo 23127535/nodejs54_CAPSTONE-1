@@ -14,8 +14,17 @@ import errorHandler from "./src/common/middlewares/error-handler.middleware.js";
 
 const app = express();
 
+// Parse CORS origins from environment variable or use defaults
+const defaultCorsOrigins = [
+  "http://localhost:5173",
+  "https://nodejs54-capstone-1.vercel.app"
+];
+const corsOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map(origin => origin.trim())
+  : defaultCorsOrigins;
+
 app.use(cors({
-  origin: ["http://localhost:5173", "google.com"],
+  origin: corsOrigins,
   credentials: true
 }));
 
@@ -56,7 +65,7 @@ const httpServer = http.createServer(app);
 
 const PORT = process.env.PORT || 3069;
 httpServer.listen(PORT, () => {
-    console.log(`Server online at port: ${PORT}`);
+  console.log(`Server online at port: ${PORT}`);
 });
 httpServer.requestTimeout = 0;
 
